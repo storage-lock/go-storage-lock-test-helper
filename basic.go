@@ -23,4 +23,6 @@ func BasicTest[Connection any](t *testing.T, factory *storage_lock_factory.Stora
 	err = lock.UnLock(context.Background(), ownerId)
 	assert.Nil(t, err)
 
+	t.Log("StorageLock basic test done")
+
 }
