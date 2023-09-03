@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	storage_lock_factory "github.com/storage-lock/go-storage-lock-factory"
+	"github.com/storage-lock/go-utils"
 	"github.com/stretchr/testify/assert"
 	"sync"
 	"testing"
@@ -21,8 +22,7 @@ var (
 // ConcurrencyTest 并发测试
 func ConcurrencyTest[Connection any](t *testing.T, factory *storage_lock_factory.StorageLockFactory[Connection]) {
 
-	lockId := "test-lock"
-
+	lockId := utils.RandomID()
 	counter := NewCounter()
 	var playerWg sync.WaitGroup
 	for i := 0; i < PlayerNum; i++ {
@@ -30,12 +30,12 @@ func ConcurrencyTest[Connection any](t *testing.T, factory *storage_lock_factory
 		go func() {
 			defer playerWg.Done()
 
-			for i := 0; i < EveryOnePlayTimes; i++ {
+			player, err := NewLockPlayer[Connection](lockId, factory)
+			if err != nil {
+				panic(err)
+			}
 
-				player, err := NewLockPlayer[Connection](lockId, factory)
-				if err != nil {
-					panic(err)
-				}
+			for j := 0; j < EveryOnePlayTimes; j++ {
 
 				err = player.Do(context.Background(), func() {
 					fmt.Println(counter.Get())
@@ -56,5 +56,7 @@ func ConcurrencyTest[Connection any](t *testing.T, factory *storage_lock_factory
 	counter.Wait()
 	c := counter.Get()
 	assert.Equal(t, PlayerNum*EveryOnePlayTimes, c)
+
+	t.Log("StorageLock concurrency test done")
 
 }

@@ -14,4 +14,6 @@ func TestStorageLock[Connection any](t *testing.T, factory *storage_lock_factory
 	// 并发测试
 	ConcurrencyTest(t, factory)
 
+	t.Log("StorageLock all testcase done.")
+
 }

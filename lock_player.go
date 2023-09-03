@@ -16,7 +16,9 @@ type LockPlayer[Connection any] struct {
 }
 
 func NewLockPlayer[Connection any](lockId string, factory *storage_lock_factory.StorageLockFactory[Connection]) (*LockPlayer[Connection], error) {
-	lock, err := factory.CreateLock(lockId)
+	//options := storage_lock.NewStorageLockOptions().SetLockId(lockId).AddEventListeners(events_listener_stdout.NewEventListenerStdout())
+	options := storage_lock.NewStorageLockOptions().SetLockId(lockId)
+	lock, err := factory.CreateLockWithOptions(options)
 	if err != nil {
 		return nil, err
 	}
