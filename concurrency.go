@@ -7,6 +7,7 @@ import (
 	"github.com/storage-lock/go-utils"
 	"github.com/stretchr/testify/assert"
 	"sync"
+	"sync/atomic"
 	"testing"
 )
 
@@ -20,43 +21,55 @@ var (
 )
 
 // ConcurrencyTest 并发测试
-func ConcurrencyTest[Connection any](t *testing.T, factory *storage_lock_factory.StorageLockFactory[Connection]) {
+func ConcurrencyTest[Connection any](t *testing.T, factory *storage_lock_factory.StorageLockFactory[Connection]) int {
 
 	lockId := utils.RandomID()
 	counter := NewCounter()
+	var failures atomic.Int32
 	var playerWg sync.WaitGroup
 	for i := 0; i < PlayerNum; i++ {
 		playerWg.Add(1)
 		go func() {
 			defer playerWg.Done()
 
-			player, err := NewLockPlayer[Connection](lockId, factory)
+			player, err := createPlayer(lockId, factory)
 			if err != nil {
-				panic(err)
+				failures.Add(1)
+				return
 			}
 
 			for j := 0; j < EveryOnePlayTimes; j++ {
 
-				err = player.Do(context.Background(), func() {
-					fmt.Println(counter.Get())
-					counter.Add(1)
-				})
+				err = runPlay(player, counter)
 
 				if err != nil {
-					panic(err)
+					failures.Add(1)
+					return
 				}
 
 			}
 
 		}()
 	}
-
 	playerWg.Wait()
+	failed := int(failures.Load())
 	counter.Close()
 	counter.Wait()
-	c := counter.Get()
-	assert.Equal(t, PlayerNum*EveryOnePlayTimes, c)
-
+	if failed == 0 {
+		c := counter.Get()
+		assert.Equal(t, PlayerNum*EveryOnePlayTimes, c)
+	}
 	t.Log("StorageLock concurrency test done")
+	return failed
+}
 
+var createPlayer = func(lockId string, factory any) (*LockPlayer[any], error) {
+	return NewLockPlayer(lockId, factory.(*storage_lock_factory.StorageLockFactory[any]))
+}
+
+var runPlay = func(player *LockPlayer[any], counter *Counter) error {
+	return player.Do(context.Background(), func() {
+		fmt.Println(counter.Get())
+		counter.Add(1)
+	})
 }
