@@ -3,7 +3,8 @@ module github.com/storage-lock/go-storage-lock-test-helper
 go 1.23
 
 require (
-	github.com/storage-lock/go-storage-lock v0.0.3
+	github.com/storage-lock/go-memory-locks v0.0.0
+	github.com/storage-lock/go-storage-lock v0.0.6
 	github.com/storage-lock/go-storage-lock-factory v0.0.2-0.20230830164658-ef9d99aed23d
 	github.com/storage-lock/go-utils v0.0.2
 	github.com/stretchr/testify v1.11.1
@@ -17,20 +18,13 @@ require (
 	github.com/golang-infrastructure/go-reflect-utils v0.0.0-20221130143747-965ef2eb09c3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/storage-lock/go-events v0.0.3 // indirect
-	github.com/storage-lock/go-memory-locks v0.0.0 // indirect
-	github.com/storage-lock/go-memory-storage v0.0.0-20230815161904-4e2a1ca32314 // indirect
-	github.com/storage-lock/go-storage v0.0.2 // indirect
-	github.com/storage-lock/go-storage-events v0.0.5 // indirect
+	github.com/storage-lock/go-events v0.0.4 // indirect
+	github.com/storage-lock/go-memory-storage v0.0.1 // indirect
+	github.com/storage-lock/go-storage v0.0.3 // indirect
+	github.com/storage-lock/go-storage-events v0.0.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/storage-lock/go-storage => ../go-storage
-
-replace github.com/storage-lock/go-storage-lock => ../go-storage-lock
-
 replace github.com/storage-lock/go-storage-lock-factory => ../go-storage-lock-factory
-
-replace github.com/storage-lock/go-memory-storage => ../go-memory-storage
 
 replace github.com/storage-lock/go-memory-locks => ../go-memory-locks
