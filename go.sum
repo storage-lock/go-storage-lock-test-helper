@@ -28,8 +28,8 @@ github.com/storage-lock/go-memory-locks v0.0.1 h1:rqhsw1YCmWQ+wayu5F3bdc3C0Azfhj
 github.com/storage-lock/go-memory-locks v0.0.1/go.mod h1:Bs7RX76yTtK3GLGUcMuG3lKDFDGO2ahKbLSCGDwjO+k=
 github.com/storage-lock/go-memory-storage v0.0.1 h1:g2tkrMv0BKZK52fjrJgktqBGLNx7PXFWQwMAQDq65GA=
 github.com/storage-lock/go-memory-storage v0.0.1/go.mod h1:4sxMU46piuA1jfAKmkM6y2v4n3+SNqhIIYeq3U0IrKo=
-github.com/storage-lock/go-storage v0.0.3 h1:oHhi/qTfZjqLZGtAM3H7El6Fffr+la5pTaIjZhf6B3I=
-github.com/storage-lock/go-storage v0.0.3/go.mod h1:dadPDy/3aiXNNgGcbqOCZ48Bafo8tHQl3ybhwKZ4I0o=
+github.com/storage-lock/go-storage v0.1.0 h1:rMdGHd/0TNGkLpQpurW2q2zSaQ/zircwJ/oPdZDqZG8=
+github.com/storage-lock/go-storage v0.1.0/go.mod h1:dadPDy/3aiXNNgGcbqOCZ48Bafo8tHQl3ybhwKZ4I0o=
 github.com/storage-lock/go-storage-events v0.0.6 h1:UM4bITGRrXdlIoCQFEKJAl/F0PMZk1x+eWw4Kj0xB8s=
 github.com/storage-lock/go-storage-events v0.0.6/go.mod h1:xKUTJj1QVan3GJOoISbQvmoNa7CcCaWiAtnlcThVTIY=
 github.com/storage-lock/go-storage-lock v0.0.6 h1:4J26R+CDa6tx5DnQNG+6DbF3QklB2djf0YmnFbiUXIM=
